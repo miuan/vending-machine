@@ -1,10 +1,9 @@
 # Vending machine
-![vending machine](https://github.com/miuan/vending-machine/blob/main/app.png)
+![alt vending machine](https://github.com/miuan/vending-machine/blob/main/app.png?raw=true)
 ### Know issues
 
 - put request should be update
 - productName is only name
-
 ## Client
 
 ```
@@ -89,7 +88,7 @@ i:vending
     ✓ should buy product with cost: 100 for user with deposit: 5000000 and amountAvailable:10000  (103 ms)
     ✓ should not buy for product with cost:100 amountAvailable:0 and enough user deposit: 100 (94 ms)
     ✓ should not buy for product with cost:100 amountAvailable:0 and enough user deposit: 500000 (92 ms)
-    ```
+```
 
 ## Schema Description
 
