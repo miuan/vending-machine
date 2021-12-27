@@ -1,0 +1,8 @@
+mutation updateProduct($id: ID!, $productName: String, $cost: Int, $amountAvailable: Int) {
+  updateProduct(id: $id, productName: $productName, cost: $cost, amountAvailable: $amountAvailable) {
+    id
+    productName,
+    cost,
+    amountAvailable
+  }
+}

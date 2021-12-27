@@ -1,0 +1,8 @@
+query allProduct($filter: ProductFilter) {
+  allProduct(filter: $filter) {
+    id
+    productName,
+    cost,
+    amountAvailable
+  }
+}

@@ -1,0 +1,8 @@
+query product($id: ID) {
+  Product(id: $id) {
+    id
+    productName,
+    cost,
+    amountAvailable
+  }
+}
