@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../app/reducers/userSlice";
-import AdminHeader from "./AdminHeader";
 import PublicHeader from "./PublicHeader";
 import UserHeader from "./UserHeader";
 

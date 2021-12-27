@@ -1,7 +1,7 @@
 
 .Product {
     position: relative;
-    width: 300px;
+    width: 400px;
     margin: 10px 0px;
 }
 .Product-name {
@@ -11,6 +11,10 @@
 
 .Product-cost {
     padding: 10px;
+}
+
+.Product > button {
+    font-size: small;
 }
 
 .Credit > Button {

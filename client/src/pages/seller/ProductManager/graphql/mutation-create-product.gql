@@ -1,7 +1,7 @@
-mutation createProduct($productName: String!, $cost: Int!, $amountAvailable: Int) {
-  createProduct(productName: $productName, cost: $cost, amountAvailable: $amountAvailable) {
+mutation createProduct($name: String!, $cost: Int!, $amountAvailable: Int) {
+  createProduct(name: $name, cost: $cost, amountAvailable: $amountAvailable) {
     id
-    productName,
+    name,
     cost,
     amountAvailable
   }

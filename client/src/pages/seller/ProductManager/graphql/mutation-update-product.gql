@@ -1,7 +1,7 @@
-mutation updateProduct($id: ID!, $productName: String, $cost: Int, $amountAvailable: Int) {
-  updateProduct(id: $id, productName: $productName, cost: $cost, amountAvailable: $amountAvailable) {
+mutation updateProduct($id: ID!, $name: String, $cost: Int, $amountAvailable: Int) {
+  updateProduct(id: $id, name: $name, cost: $cost, amountAvailable: $amountAvailable) {
     id
-    productName,
+    name,
     cost,
     amountAvailable
   }

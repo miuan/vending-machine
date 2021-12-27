@@ -12,7 +12,7 @@ import Login from "./pages/public/Login/Login";
 import { PassportCallback } from "./pages/public/Login/PassportCallback";
 import Register from "./pages/public/Login/Register";
 import VerifyUser from "./pages/public/Login/VerifyUser";
-import ProductManagerEdit, { ProductManagerEditAPI } from "./pages/seller/ProductManager/ProductManagerEdit";
+import ProductManagerEdit from "./pages/seller/ProductManager/ProductManagerEdit";
 import ProductManagerList from "./pages/seller/ProductManager/ProductManagerList";
 import SellerDashboard from "./pages/seller/SellerDashboard/SellerDashboard";
 import UserDashboard from "./pages/user/UserDashboard/UserDashboard";

@@ -18,6 +18,11 @@ npm i
 npm start
 ```
 
+### Interactive documentation
+
+Swagger for REST API http://localhost:3001/swagger
+Graphql playground http://localhost:3001/graphql
+
 ## client
 
 ```

@@ -12,7 +12,7 @@ export const ProductManagerList = ({ userId, adminMode = false, api }) => {
       {api ? (
         <FilteredList
           name={"Product api"}
-          fields={["productName", "cost", "amountAvailable"]}
+          fields={["name", "cost", "amountAvailable"]}
           userId={userId}
           adminMode={adminMode}
           createLink={"/seller/api/product-manager/create"}
@@ -22,7 +22,7 @@ export const ProductManagerList = ({ userId, adminMode = false, api }) => {
       ) : (
         <FilteredList
           name={"Product gql"}
-          fields={["productName", "cost", "amountAvailable"]}
+          fields={["name", "cost", "amountAvailable"]}
           userId={userId}
           adminMode={adminMode}
           queries={{ USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION }}

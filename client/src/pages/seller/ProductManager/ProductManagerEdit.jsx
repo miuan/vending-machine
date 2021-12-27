@@ -12,12 +12,12 @@ const UPDATE_MUTATION = loader("./graphql/mutation-update-product.gql");
 const QUERY = loader("./graphql/query-product.gql");
 
 const renameError = (error) => {
-  const dupkeyRegEx = /index: productName_1 dup key: { productName: "(.*?)"/;
-
-  const dupkeyMatch = error.match(dupkeyRegEx);
+  const dupkeyMatch = error.match(/index: name_1 dup key: { name: "(.*?)"/);
   if (dupkeyMatch) {
     return `Field product name have to be unique, you want '${dupkeyMatch[1]}' what is already in your product list`;
   }
+
+  if (error.match(/Cost should be divided by 5/)) return `Cost shoud be divided by 5 without mod`;
 
   return error;
 };
@@ -29,7 +29,7 @@ const ProductManagerEditForm = ({ storedData, onSubmit, errors }) => {
     <>
       {errors && <Alert variant={"danger"}>{errors.toString()}</Alert>}
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Control name={"productName"} label={"Name"} required={true} storedData={storedData} {...reactForm} />
+        <Control name={"name"} label={"Name"} required={true} storedData={storedData} {...reactForm} />
         <Control name={"cost"} label={"Cost"} required={true} storedData={storedData} valueAsNumber {...reactForm} />
         <Control name={"amountAvailable"} label={"Available (num of stock)"} required={false} storedData={storedData} valueAsNumber {...reactForm} />
         <Button type="submit">Save</Button>
@@ -42,7 +42,7 @@ export const ProductManagerEditAPI = () => {
   const { id } = useParams();
 
   return (
-    <EditorApi id={id} name={"Product api"} fields={["productName", "cost", "productAvailable"]} apiUrl={"/api/product"} renameError={renameError}>
+    <EditorApi id={id} name={"Product api"} fields={["name", "cost", "productAvailable"]} apiUrl={"/api/product"} renameError={renameError}>
       {(storedData, onSubmit, errors) => <ProductManagerEditForm storedData={storedData} onSubmit={onSubmit} errors={errors} userRoleId={id} />}
     </EditorApi>
   );
@@ -55,7 +55,7 @@ export const ProductManagerEditGQL = () => {
     <Editor
       id={id}
       name={"Product gql"}
-      fields={["productName", "cost", "productAvailable"]}
+      fields={["name", "cost", "productAvailable"]}
       query={{
         CREATE_MUTATION,
         UPDATE_MUTATION,
