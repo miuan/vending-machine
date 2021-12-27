@@ -21,7 +21,7 @@ import { Document } from 'mongoose'
 		id: string
 		amountAvailable: number
 		cost: number
-		productName: string
+		name: string
 		user: UserModel
     }
   

@@ -2,12 +2,12 @@
 # add filter for is_null or is_not_null
 
 @all("public")
-@create("public") 
+@create(role:"seller") 
 @one("owner") @update("owner") @remove("owner")
 type Product @model {
    amountAvailable: Int @default(1)
    cost: Int!
-   productName: String! @unique
+   name: String! @unique
 }
 
 type User @model {

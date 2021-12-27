@@ -1,66 +1,58 @@
-import * as passport from "koa-passport";
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
-import * as _ from "lodash";
-import * as crypto from "crypto";
-import * as Router from "koa-router";
-import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import { Strategy as AnonymousStrategy } from "passport-anonymous";
+import * as passport from 'koa-passport'
+import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken'
+import * as _ from 'lodash'
+import * as crypto from 'crypto'
+import * as Router from 'koa-router'
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import { Strategy as AnonymousStrategy } from 'passport-anonymous'
 
-import {
-  apiMiddleware,
-  TokenExpiredError,
-  UnauthorizedError,
-} from "./api-utils";
+import { apiMiddleware, TokenExpiredError, UnauthorizedError } from './api-utils'
 
 export const passportSetupJwt = (app, userModel) => {
-  // const authRouter = new Router({ prefix: '/auth' })
-  passport.serializeUser<any, any>((req, user, done) => {
-    done(undefined, user);
-  });
+    // const authRouter = new Router({ prefix: '/auth' })
+    passport.serializeUser<any, any>((req, user, done) => {
+        done(undefined, user)
+    })
 
-  passport.deserializeUser((id, done) => {
-    console.log("deserializeUser", id);
-    done(id);
-  });
+    passport.deserializeUser((id, done) => {
+        console.log('deserializeUser', id)
+        done(id)
+    })
 
-  // http://www.passportjs.org/packages/passport-jwt/
-  passport.use(
-    new JwtStrategy(
-      {
-        jwtFromRequest: ExtractJwt.fromExtractors([
-          ExtractJwt.fromAuthHeaderAsBearerToken(),
-          ExtractJwt.fromUrlQueryParameter("token"),
-        ]),
-        secretOrKey:
-          process.env.JWT_TOKEN_SECRET || "graphql_monster_test_secret",
-        ignoreExpiration: true,
-      },
-      async (jwt_payload, done) => {
-        if (Date.now() >= jwt_payload.exp * 1000) {
-          return done(new TokenExpiredError());
-        } else if (!(await userModel.exists({ _id: jwt_payload.id }))) {
-          return done(new UnauthorizedError());
-        }
-        done(null, jwt_payload);
-      }
+    // http://www.passportjs.org/packages/passport-jwt/
+    passport.use(
+        new JwtStrategy(
+            {
+                jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken(), ExtractJwt.fromUrlQueryParameter('token')]),
+                secretOrKey: process.env.JWT_TOKEN_SECRET || 'graphql_monster_test_secret',
+                ignoreExpiration: true,
+            },
+            async (jwt_payload, done) => {
+                if (Date.now() >= jwt_payload.exp * 1000) {
+                    return done(new TokenExpiredError())
+                } else if (!(await userModel.exists({ _id: jwt_payload.id }))) {
+                    return done(new UnauthorizedError())
+                }
+                done(null, jwt_payload)
+            },
+        ),
     )
-  );
 
-  passport.use(new AnonymousStrategy());
+    passport.use(new AnonymousStrategy())
 
-  // Initialize Passport and restore authentication state, if any, from the session.
-  // It is use for GithubStrategy, GoogleStrategy, FacebookStrategy, ...
-  app.use(passport.initialize());
-  app.use(passport.authenticate(["jwt", "anonymous"]));
-};
+    // Initialize Passport and restore authentication state, if any, from the session.
+    // It is use for GithubStrategy, GoogleStrategy, FacebookStrategy, ...
+    app.use(passport.initialize())
+    app.use(passport.authenticate(['jwt', 'anonymous']))
+}
 
 export async function generateHash(password) {
-  return bcrypt.hash(password, 10);
+    return bcrypt.hash(password, 10)
 }
 
 export async function compareHash(pass, hashPass) {
-  return bcrypt.compare(pass, hashPass);
+    return bcrypt.compare(pass, hashPass)
 }
 
 /**
@@ -69,106 +61,96 @@ export async function compareHash(pass, hashPass) {
  * @param options
  */
 export const generateTokenJWT = (tokenizeData, opts?): string => {
-  let options = opts || {};
+    let options = opts || {}
 
-  if (!options) {
-    options = {
-      /* expires in 365 days */
-      expiresIn: "365d",
-    };
-  }
+    if (!options) {
+        options = {
+            /* expires in 365 days */
+            expiresIn: '365d',
+        }
+    }
 
-  const tokenJWT = jwt.sign(
-    tokenizeData,
-    process.env.JWT_TOKEN_SECRET || "graphql_monster_test_secret",
-    options
-  );
-  return tokenJWT;
-};
+    const tokenJWT = jwt.sign(tokenizeData, process.env.JWT_TOKEN_SECRET || 'graphql_monster_test_secret', options)
+    return tokenJWT
+}
 
 export const genPasswordAndTokens = (userData) => {
-  if (!userData.id) {
-    throw "Call genPasswordAndTokens withou user.id";
-  }
-  // TODO: schort the expire date
-  userData.__token = generateTokenJWT(
-    { id: userData.id, roles: userData.roles || [] },
-    { expiresIn: "1h" }
-  );
-  userData.__refreshToken = generateTokenJWT(
-    { id: userData.id },
-    { expiresIn: "365d" }
-  );
-};
+    if (!userData.id) {
+        throw 'Call genPasswordAndTokens withou user.id'
+    }
+    // TODO: schort the expire date
+    userData.__token = generateTokenJWT({ id: userData.id, roles: userData.roles || [] }, { expiresIn: '1h' })
+    userData.__refreshToken = generateTokenJWT({ id: userData.id }, { expiresIn: '365d' })
+}
 
 const createVerifyToken = async (userModel) => {
-  // check existence of verify token
-  let __verifyToken;
-  do {
-    __verifyToken = crypto.randomBytes(64).toString("hex");
-  } while (await userModel.exists({ __verifyToken }));
+    // check existence of verify token
+    let __verifyToken
+    do {
+        __verifyToken = crypto.randomBytes(64).toString('hex')
+    } while (await userModel.exists({ __verifyToken }))
 
-  return __verifyToken;
-};
+    return __verifyToken
+}
 
 async function _login(userModel, data) {
-  const user = await userModel.findOne({ email: data.email }).populate("roles");
+    const user = await userModel.findOne({ email: data.email })
 
-  if (user && (await compareHash(data.password, user.__password))) {
-    // in login allways generate new token
-    // if(!user.__token) {
-    genPasswordAndTokens(user);
-    await user.save();
-    //}
+    if (user && (await compareHash(data.password, user.__password))) {
+        // in login allways generate new token
+        // if(!user.__token) {
+        genPasswordAndTokens(user)
+        await user.save()
+        //}
 
-    const data = {
-      token: user.__token,
-      refreshToken: user.__refreshToken,
-      user,
-    };
+        const data = {
+            token: user.__token,
+            refreshToken: user.__refreshToken,
+            user,
+        }
 
-    // clean user
-    data.user.__password = undefined;
-    data.user.__forgottenPasswordToken = undefined;
-    data.user.__resetPasswordToken = undefined;
-    data.user.__token = undefined;
-    data.user.__refreshToken = undefined;
+        // clean user
+        data.user.__password = undefined
+        data.user.__forgottenPasswordToken = undefined
+        data.user.__resetPasswordToken = undefined
+        data.user.__token = undefined
+        data.user.__refreshToken = undefined
 
-    return data;
-  }
+        return data
+    }
 
-  throw new UnauthorizedError();
+    throw new UnauthorizedError()
 }
 
 async function _register(userModel, data) {
-  const { password, email } = data;
+    const { password, email } = data
 
-  if (await userModel.exists({ email })) {
-    throw `User with email: ${email} already exist`;
-  }
+    if (await userModel.exists({ email })) {
+        throw `User with email: ${email} already exist`
+    }
 
-  delete data.password;
-  const __verifyToken = await createVerifyToken(userModel);
-  const __password = await generateHash(password);
-  const user = {
-    ...data,
-    __password,
-    password: "******",
-    verified: false,
-    __verifyToken,
-  } as any;
+    delete data.password
+    const __verifyToken = await createVerifyToken(userModel)
+    const __password = await generateHash(password)
+    const user = {
+        ...data,
+        __password,
+        password: '******',
+        verified: false,
+        __verifyToken,
+    } as any
 
-  const createdUser = await userModel.create(user);
-  // user have to be in DB to have his ID for generate token
-  genPasswordAndTokens(createdUser);
-  // save the tokens into model
-  createdUser.save();
+    const createdUser = await userModel.create(user)
+    // user have to be in DB to have his ID for generate token
+    genPasswordAndTokens(createdUser)
+    // save the tokens into model
+    createdUser.save()
 
-  return {
-    token: createdUser.__token,
-    refreshToken: createdUser.__refreshToken,
-    user: createdUser,
-  };
+    return {
+        token: createdUser.__token,
+        refreshToken: createdUser.__refreshToken,
+        user: createdUser,
+    }
 }
 
 /**
@@ -223,12 +205,7 @@ async function _register(userModel, data) {
  *    description: Authorization information is missing or invalid.
  *
  */
-const login_v1 = (userModel) => async (ctx) =>
-  (ctx.body = apiMiddleware(
-    ctx,
-    await _login(userModel, ctx.request.body),
-    "login_v1"
-  ));
+const login_v1 = (userModel) => async (ctx) => (ctx.body = apiMiddleware(ctx, await _login(userModel, ctx.request.body), 'login_v1'))
 
 /**
  *
@@ -267,20 +244,15 @@ const login_v1 = (userModel) => async (ctx) =>
  *    description: Authorization information is missing or invalid.
  *
  */
-const register_v1 = (userModel) => async (ctx) =>
-  (ctx.body = apiMiddleware(
-    ctx,
-    await _register(userModel, ctx.request.body),
-    "register_v1"
-  ));
+const register_v1 = (userModel) => async (ctx) => (ctx.body = apiMiddleware(ctx, await _register(userModel, ctx.request.body), 'register_v1'))
 
 export const setupAuth = (app, userModel) => {
-  passportSetupJwt(app, userModel);
+    passportSetupJwt(app, userModel)
 
-  const authRouter = new Router({ prefix: "/auth" });
-  authRouter.post("/login_v1", login_v1(userModel));
-  authRouter.post("/register_v1", register_v1(userModel));
-  return authRouter;
-};
+    const authRouter = new Router({ prefix: '/auth' })
+    authRouter.post('/login_v1', login_v1(userModel))
+    authRouter.post('/register_v1', register_v1(userModel))
+    return authRouter
+}
 
-export default setupAuth;
+export default setupAuth

@@ -31,8 +31,8 @@ enum ProductOrderBy {
   amountAvailable_desc
   cost_asc
   cost_desc
-  productName_asc
-  productName_desc
+  name_asc
+  name_desc
   user_asc
   user_desc
 }
@@ -425,39 +425,39 @@ input ProductFilter {
   # All values greater than or equal the given value.
   cost_gte: Int
 
-  productName: String
+  name: String
   # Values that are not equal to given value.
-  productName_not: String
+  name_not: String
 
   # All values that are contained in given list.
-  productName_in: [String!]
+  name_in: [String!]
 
   # All values that are not contained in given list.
-  productName_not_in: [String!]
+  name_not_in: [String!]
 
   # All values less than the given value.
-  productName_lt: String
+  name_lt: String
 
   # All values less than or equal the given value.
-  productName_lte: String
+  name_lte: String
 
   # All values greater than the given value.
-  productName_gt: String
+  name_gt: String
 
   # All values greater than or equal the given value.
-  productName_gte: String
+  name_gte: String
 
-  productName_contains: String
+  name_contains: String
 
-  productName_not_contains: String
+  name_not_contains: String
 
-  productName_starts_with: String
+  name_starts_with: String
 
-  productName_not_starts_with: String
+  name_not_starts_with: String
 
-  productName_ends_with: String
+  name_ends_with: String
 
-  productName_not_ends_with: String
+  name_not_ends_with: String
 
   user_every: UserFilter
   user_some: UserFilter
@@ -830,7 +830,7 @@ input UserRoleFilter {
     id: ID!
     amountAvailable: Int
     cost: Int!
-    productName: String!
+    name: String!
     user: UserModel
   }
 
@@ -940,8 +940,8 @@ type Mutation {
   createFile(name: String!, type: String, data: String!, userId: ID): FileModel
   updateFile(id: ID!, name: String, type: String, data: String, userId: ID): FileModel
   removeFile(id: ID!): FileModel
-  createProduct(amountAvailable: Int, cost: Int!, productName: String!, userId: ID): ProductModel
-  updateProduct(id: ID!, amountAvailable: Int, cost: Int, productName: String, userId: ID): ProductModel
+  createProduct(amountAvailable: Int, cost: Int!, name: String!, userId: ID): ProductModel
+  updateProduct(id: ID!, amountAvailable: Int, cost: Int, name: String, userId: ID): ProductModel
   removeProduct(id: ID!): ProductModel
   updateUser(id: ID!, username: String, deposit: Int, rolesIds: [ID], roles: [UserrolesUserRole]): UserModel
   removeUser(id: ID!): UserModel

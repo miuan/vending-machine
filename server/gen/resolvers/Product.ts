@@ -63,7 +63,7 @@ export const productOne = (entry, protections) => {
 
 export const productCreate = (entry, protections) => {
     return async (root, data, ctx) => {
-        if( !(await protections.role(ctx, ['admin']))&&!(await protections.public()) ){
+        if( !(await protections.role(ctx, ['admin']))&&!(await protections.role(ctx, ['seller'])) ){
         throw new UnauthorizedError()
       }
         const presentProtectedFields = protections.checkDataContainProtectedFields(data)

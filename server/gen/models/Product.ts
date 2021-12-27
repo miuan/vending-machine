@@ -7,11 +7,11 @@ export const productSchema: Schema = new Schema(
     {
         		amountAvailable: {type: Schema.Types.Number, default: 1},
 		cost: {type: Schema.Types.Number, required: true},
-		productName: {type: Schema.Types.String, required: function () { 
+		name: {type: Schema.Types.String, required: function () { 
                 // Mongoose required string can't be a empty
                 // but GraphQL required string can be a empty
                 // so make required conditional https://stackoverflow.com/questions/44320745/in-mongoose-how-do-i-require-a-string-field-to-not-be-null-or-undefined-permitt
-                return !(typeof this?.productName === 'string') 
+                return !(typeof this?.name === 'string') 
             }, unique: true},
 		user: {type: Schema.Types.ObjectId, ref: 'server_User', index: true},
 

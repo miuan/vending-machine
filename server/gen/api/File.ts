@@ -105,7 +105,11 @@ const allFile = (entry) => async (ctx) => {
     }
 
     body.user = body.user || ctx.state?.user?.id
-    let resData = await entry.services['file'].all(ctx.params, ctx.state?.user?.id)
+    const query = ctx.request.query
+    if (query.filter) {
+        query.filter = JSON5.parse(query.filter)
+    }
+    let resData = await entry.services['file'].all(query, ctx.state?.user?.id)
     resData = resData.map((m) => {
         m.id = m._id
         delete m._id
