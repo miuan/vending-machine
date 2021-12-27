@@ -1,0 +1,974 @@
+
+  enum FileOrderBy {
+  updatedAt_asc
+  updatedAt_desc
+  createdAt_asc
+  createdAt_desc
+  id_asc
+  id_desc
+  name_asc
+  name_desc
+  publicKey_asc
+  publicKey_desc
+  type_asc
+  type_desc
+  size_asc
+  size_desc
+  data_asc
+  data_desc
+  user_asc
+  user_desc
+}
+
+enum ProductOrderBy {
+  updatedAt_asc
+  updatedAt_desc
+  createdAt_asc
+  createdAt_desc
+  id_asc
+  id_desc
+  amountAvailable_asc
+  amountAvailable_desc
+  cost_asc
+  cost_desc
+  productName_asc
+  productName_desc
+  user_asc
+  user_desc
+}
+
+enum UserOrderBy {
+  updatedAt_asc
+  updatedAt_desc
+  createdAt_asc
+  createdAt_desc
+  id_asc
+  id_desc
+  username_asc
+  username_desc
+  deposit_asc
+  deposit_desc
+  email_asc
+  email_desc
+  password_asc
+  password_desc
+  verified_asc
+  verified_desc
+  roles_asc
+  roles_desc
+  files_asc
+  files_desc
+  _product_asc
+  _product_desc
+}
+
+enum UserRoleOrderBy {
+  updatedAt_asc
+  updatedAt_desc
+  createdAt_asc
+  createdAt_desc
+  id_asc
+  id_desc
+  name_asc
+  name_desc
+  users_asc
+  users_desc
+}
+
+
+
+  input FileFilter {
+
+  AND: [FileFilter!]
+  OR: [FileFilter!]
+    updatedAt: DateTime
+  # Values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+
+  createdAt: DateTime
+  # Values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+
+  id: ID
+  # Values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  name: String
+  # Values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  name_contains: String
+
+  name_not_contains: String
+
+  name_starts_with: String
+
+  name_not_starts_with: String
+
+  name_ends_with: String
+
+  name_not_ends_with: String
+
+  publicKey: String
+  # Values that are not equal to given value.
+  publicKey_not: String
+
+  # All values that are contained in given list.
+  publicKey_in: [String!]
+
+  # All values that are not contained in given list.
+  publicKey_not_in: [String!]
+
+  # All values less than the given value.
+  publicKey_lt: String
+
+  # All values less than or equal the given value.
+  publicKey_lte: String
+
+  # All values greater than the given value.
+  publicKey_gt: String
+
+  # All values greater than or equal the given value.
+  publicKey_gte: String
+
+  publicKey_contains: String
+
+  publicKey_not_contains: String
+
+  publicKey_starts_with: String
+
+  publicKey_not_starts_with: String
+
+  publicKey_ends_with: String
+
+  publicKey_not_ends_with: String
+
+  type: String
+  # Values that are not equal to given value.
+  type_not: String
+
+  # All values that are contained in given list.
+  type_in: [String!]
+
+  # All values that are not contained in given list.
+  type_not_in: [String!]
+
+  # All values less than the given value.
+  type_lt: String
+
+  # All values less than or equal the given value.
+  type_lte: String
+
+  # All values greater than the given value.
+  type_gt: String
+
+  # All values greater than or equal the given value.
+  type_gte: String
+
+  type_contains: String
+
+  type_not_contains: String
+
+  type_starts_with: String
+
+  type_not_starts_with: String
+
+  type_ends_with: String
+
+  type_not_ends_with: String
+
+  size: Int
+  # Values that are not equal to given value.
+  size_not: Int
+
+  # All values that are contained in given list.
+  size_in: [Int!]
+
+  # All values that are not contained in given list.
+  size_not_in: [Int!]
+
+  # All values less than the given value.
+  size_lt: Int
+
+  # All values less than or equal the given value.
+  size_lte: Int
+
+  # All values greater than the given value.
+  size_gt: Int
+
+  # All values greater than or equal the given value.
+  size_gte: Int
+
+  data: String
+  # Values that are not equal to given value.
+  data_not: String
+
+  # All values that are contained in given list.
+  data_in: [String!]
+
+  # All values that are not contained in given list.
+  data_not_in: [String!]
+
+  # All values less than the given value.
+  data_lt: String
+
+  # All values less than or equal the given value.
+  data_lte: String
+
+  # All values greater than the given value.
+  data_gt: String
+
+  # All values greater than or equal the given value.
+  data_gte: String
+
+  data_contains: String
+
+  data_not_contains: String
+
+  data_starts_with: String
+
+  data_not_starts_with: String
+
+  data_ends_with: String
+
+  data_not_ends_with: String
+
+  user_every: UserFilter
+  user_some: UserFilter
+  user_none: UserFilter
+
+}
+
+input ProductFilter {
+
+  AND: [ProductFilter!]
+  OR: [ProductFilter!]
+    updatedAt: DateTime
+  # Values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+
+  createdAt: DateTime
+  # Values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+
+  id: ID
+  # Values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  amountAvailable: Int
+  # Values that are not equal to given value.
+  amountAvailable_not: Int
+
+  # All values that are contained in given list.
+  amountAvailable_in: [Int!]
+
+  # All values that are not contained in given list.
+  amountAvailable_not_in: [Int!]
+
+  # All values less than the given value.
+  amountAvailable_lt: Int
+
+  # All values less than or equal the given value.
+  amountAvailable_lte: Int
+
+  # All values greater than the given value.
+  amountAvailable_gt: Int
+
+  # All values greater than or equal the given value.
+  amountAvailable_gte: Int
+
+  cost: Int
+  # Values that are not equal to given value.
+  cost_not: Int
+
+  # All values that are contained in given list.
+  cost_in: [Int!]
+
+  # All values that are not contained in given list.
+  cost_not_in: [Int!]
+
+  # All values less than the given value.
+  cost_lt: Int
+
+  # All values less than or equal the given value.
+  cost_lte: Int
+
+  # All values greater than the given value.
+  cost_gt: Int
+
+  # All values greater than or equal the given value.
+  cost_gte: Int
+
+  productName: String
+  # Values that are not equal to given value.
+  productName_not: String
+
+  # All values that are contained in given list.
+  productName_in: [String!]
+
+  # All values that are not contained in given list.
+  productName_not_in: [String!]
+
+  # All values less than the given value.
+  productName_lt: String
+
+  # All values less than or equal the given value.
+  productName_lte: String
+
+  # All values greater than the given value.
+  productName_gt: String
+
+  # All values greater than or equal the given value.
+  productName_gte: String
+
+  productName_contains: String
+
+  productName_not_contains: String
+
+  productName_starts_with: String
+
+  productName_not_starts_with: String
+
+  productName_ends_with: String
+
+  productName_not_ends_with: String
+
+  user_every: UserFilter
+  user_some: UserFilter
+  user_none: UserFilter
+
+}
+
+input UserFilter {
+
+  AND: [UserFilter!]
+  OR: [UserFilter!]
+    updatedAt: DateTime
+  # Values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+
+  createdAt: DateTime
+  # Values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+
+  id: ID
+  # Values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  username: String
+  # Values that are not equal to given value.
+  username_not: String
+
+  # All values that are contained in given list.
+  username_in: [String!]
+
+  # All values that are not contained in given list.
+  username_not_in: [String!]
+
+  # All values less than the given value.
+  username_lt: String
+
+  # All values less than or equal the given value.
+  username_lte: String
+
+  # All values greater than the given value.
+  username_gt: String
+
+  # All values greater than or equal the given value.
+  username_gte: String
+
+  username_contains: String
+
+  username_not_contains: String
+
+  username_starts_with: String
+
+  username_not_starts_with: String
+
+  username_ends_with: String
+
+  username_not_ends_with: String
+
+  deposit: Int
+  # Values that are not equal to given value.
+  deposit_not: Int
+
+  # All values that are contained in given list.
+  deposit_in: [Int!]
+
+  # All values that are not contained in given list.
+  deposit_not_in: [Int!]
+
+  # All values less than the given value.
+  deposit_lt: Int
+
+  # All values less than or equal the given value.
+  deposit_lte: Int
+
+  # All values greater than the given value.
+  deposit_gt: Int
+
+  # All values greater than or equal the given value.
+  deposit_gte: Int
+
+  email: String
+  # Values that are not equal to given value.
+  email_not: String
+
+  # All values that are contained in given list.
+  email_in: [String!]
+
+  # All values that are not contained in given list.
+  email_not_in: [String!]
+
+  # All values less than the given value.
+  email_lt: String
+
+  # All values less than or equal the given value.
+  email_lte: String
+
+  # All values greater than the given value.
+  email_gt: String
+
+  # All values greater than or equal the given value.
+  email_gte: String
+
+  email_contains: String
+
+  email_not_contains: String
+
+  email_starts_with: String
+
+  email_not_starts_with: String
+
+  email_ends_with: String
+
+  email_not_ends_with: String
+
+  password: String
+  # Values that are not equal to given value.
+  password_not: String
+
+  # All values that are contained in given list.
+  password_in: [String!]
+
+  # All values that are not contained in given list.
+  password_not_in: [String!]
+
+  # All values less than the given value.
+  password_lt: String
+
+  # All values less than or equal the given value.
+  password_lte: String
+
+  # All values greater than the given value.
+  password_gt: String
+
+  # All values greater than or equal the given value.
+  password_gte: String
+
+  password_contains: String
+
+  password_not_contains: String
+
+  password_starts_with: String
+
+  password_not_starts_with: String
+
+  password_ends_with: String
+
+  password_not_ends_with: String
+
+  verified: Boolean
+  # Values that are not equal to given value.
+  verified_not: Boolean
+
+  # All values that are contained in given list.
+  verified_in: [Boolean!]
+
+  # All values that are not contained in given list.
+  verified_not_in: [Boolean!]
+
+  # All values less than the given value.
+  verified_lt: Boolean
+
+  # All values less than or equal the given value.
+  verified_lte: Boolean
+
+  # All values greater than the given value.
+  verified_gt: Boolean
+
+  # All values greater than or equal the given value.
+  verified_gte: Boolean
+
+  roles_every: UserRoleFilter
+  roles_some: UserRoleFilter
+  roles_none: UserRoleFilter
+
+  files_every: FileFilter
+  files_some: FileFilter
+  files_none: FileFilter
+
+  _product_every: ProductFilter
+  _product_some: ProductFilter
+  _product_none: ProductFilter
+
+}
+
+input UserRoleFilter {
+
+  AND: [UserRoleFilter!]
+  OR: [UserRoleFilter!]
+    updatedAt: DateTime
+  # Values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+
+  createdAt: DateTime
+  # Values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+
+  id: ID
+  # Values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  name: String
+  # Values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  name_contains: String
+
+  name_not_contains: String
+
+  name_starts_with: String
+
+  name_not_starts_with: String
+
+  name_ends_with: String
+
+  name_not_ends_with: String
+
+  users_every: UserFilter
+  users_some: UserFilter
+  users_none: UserFilter
+
+}
+
+
+
+  
+  type FileModel {
+    updatedAt: DateTime
+    createdAt: DateTime
+    id: ID!
+    name: String!
+    publicKey: String!
+    type: String!
+    size: Int!
+    data: String!
+    user: UserModel
+  }
+
+  type FileModelRemove {
+    id: ID!
+  }
+
+  type ProductModel {
+    updatedAt: DateTime
+    createdAt: DateTime
+    id: ID!
+    amountAvailable: Int
+    cost: Int!
+    productName: String!
+    user: UserModel
+  }
+
+  type ProductModelRemove {
+    id: ID!
+  }
+
+  type UserModel {
+    updatedAt: DateTime
+    createdAt: DateTime
+    id: ID!
+    username: String
+    deposit: Int
+    email: String!
+    password: String!
+    verified: Boolean
+    roles: [UserRoleModel!]
+    files: [FileModel!]
+    _product: [ProductModel!]
+  }
+
+  type UserModelRemove {
+    id: ID!
+  }
+
+  type UserRoleModel {
+    updatedAt: DateTime
+    createdAt: DateTime
+    id: ID!
+    name: String!
+    users: [UserModel!]
+  }
+
+  type UserRoleModelRemove {
+    id: ID!
+  }
+
+
+  type UserToken {
+    token: String!
+    refreshToken: String!
+    user: UserModel!
+  }
+
+  type VerifiedUserToken {
+    token: String
+    refreshToken: String
+    user: UserModel!
+  }
+
+  type VerifyEmailResendStatus {
+    email: String!
+    status: String!
+  }
+
+  type ForgottenPasswordStatus {
+    email: String!
+    status: String!
+  }
+
+  type ForgottenPasswordCheckStatus {
+    token: String!
+    status: String!
+  }
+
+  type LogoutStatus {
+    status: String!
+  }
+
+  # on model User - roles
+type AddRoleToUserResult {
+  userId: ID!
+  userRoleId: ID!
+  user: UserModel
+  userRole: UserRoleModel
+  userModifiedCount: Int
+  userRoleModifiedCount: Int
+}
+
+type Query {
+          allFile(filter: FileFilter, orderBy: FileOrderBy, limit: Int, skip: Int): [FileModel!]!
+            countFile(filter: FileFilter): Int!
+            File(id: ID): FileModel
+
+
+              allProduct(filter: ProductFilter, orderBy: ProductOrderBy, limit: Int, skip: Int): [ProductModel!]!
+            countProduct(filter: ProductFilter): Int!
+            Product(id: ID): ProductModel
+
+
+              allUser(filter: UserFilter, orderBy: UserOrderBy, limit: Int, skip: Int): [UserModel!]!
+            countUser(filter: UserFilter): Int!
+            User(id: ID): UserModel
+
+
+              allUserRole(filter: UserRoleFilter, orderBy: UserRoleOrderBy, limit: Int, skip: Int): [UserRoleModel!]!
+            countUserRole(filter: UserRoleFilter): Int!
+            UserRole(id: ID): UserRoleModel
+
+
+            
+    }input UserrolesUserRole {
+name: String!
+}
+
+type Mutation {
+  createFile(name: String!, type: String, data: String!, userId: ID): FileModel
+  updateFile(id: ID!, name: String, type: String, data: String, userId: ID): FileModel
+  removeFile(id: ID!): FileModel
+  createProduct(amountAvailable: Int, cost: Int!, productName: String!, userId: ID): ProductModel
+  updateProduct(id: ID!, amountAvailable: Int, cost: Int, productName: String, userId: ID): ProductModel
+  removeProduct(id: ID!): ProductModel
+  updateUser(id: ID!, username: String, deposit: Int, rolesIds: [ID], roles: [UserrolesUserRole]): UserModel
+  removeUser(id: ID!): UserModel
+addRoleToUser(userId: ID!, userRoleId: ID!): AddRoleToUserResult
+removeRoleFromUser(userId: ID!, userRoleId: ID!): AddRoleToUserResult
+  createUserRole(name: String!, usersIds: [ID]): UserRoleModel
+  updateUserRole(id: ID!, name: String, usersIds: [ID]): UserRoleModel
+  removeUserRole(id: ID!): UserRoleModel
+   login_v1(email: String!, password: String!): UserToken
+   register_v1(username: String, deposit: Int, email: String, password: String): UserToken
+   logout_v1(userId: ID!): LogoutStatus
+   refreshToken_v1(userId: ID!, token: String!, refreshToken: String!): UserToken
+   changePassword_v1(userId: ID!, oldPassword: String!, newPassword: String!): UserToken
+   forgottenPassword_v1(email: String!): ForgottenPasswordStatus
+   forgottenPasswordCheck_v1(token: String!): ForgottenPasswordCheckStatus
+   forgottenPasswordReset_v1(token: String!, password: String!): UserToken
+   verifyEmail_v1(verifyToken: String!): VerifiedUserToken
+   verifyEmailResend_v1(userId: ID!): VerifyEmailResendStatus
+}
+
+
+
+  # An object with an ID
+  interface Node {
+    # The id of the object.
+    id: ID!
+  }
+  
+  scalar DateTime
+    

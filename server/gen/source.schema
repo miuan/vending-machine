@@ -1,0 +1,16 @@
+# fix: default("") default(0) and numeric default(3) crerate string "3"
+# add filter for is_null or is_not_null
+
+@all("public")
+@create("public") 
+@one("owner") @update("owner") @remove("owner")
+type Product @model {
+   amountAvailable: Int @default(1)
+   cost: Int!
+   productName: String! @unique
+}
+
+type User @model {
+    username: String
+    deposit: Int @default(0)
+}
