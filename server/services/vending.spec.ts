@@ -1,5 +1,5 @@
-import { connectToServer, disconnectFromServer } from "./gen/integration-tests/helper";
-import { deposit } from "./services/vending";
+import { connectToServer, disconnectFromServer } from "../gen/integration-tests/helper";
+import { deposit } from "./vending";
 export async function createProduct(server, { user }, data) {
   data.user = user.id;
   return server.entry.models["product"].create(data);
