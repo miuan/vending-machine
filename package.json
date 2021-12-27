@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "gen": "npx graphql-monster-builder --bd graphql.monster server"
+  },
+  "dependencies": {
+    "graphql-monster-builder": "file:../builder"
+  }
+}
