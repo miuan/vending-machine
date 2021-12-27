@@ -1,5 +1,5 @@
 # Vending machine
-![vending machine]([http://url/to/img.png](https://github.com/miuan/vending-machine/blob/main/app.png))
+![vending machine](https://github.com/miuan/vending-machine/blob/main/app.png)
 ### Know issues
 
 - put request should be update
