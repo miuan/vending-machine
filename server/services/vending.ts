@@ -1,6 +1,6 @@
 import { RequestError, UnauthorizedError } from "../gen/api-utils";
 
-const ALLOWED_DEPOSIT_ADD = [5, 10, 20, 50, 100];
+const ALLOWED_DEPOSIT_ADD = [5, 10, 20, 50, 100].sort((a, b) => b - a);
 /**
  *
  * @swagger
@@ -84,10 +84,29 @@ export const reset = (entry) => async (ctx) => {
 
   const user = await entry.models.user.findById(userId);
 
-  user.deposit = 0;
-  await user.save();
+  let change = null;
+  if (user.deposit) {
+    let currentDeposit = user.deposit;
+    change = {};
 
-  ctx.body = { deposit: user.deposit, user };
+    for (const coinValue of ALLOWED_DEPOSIT_ADD) {
+      if (coinValue <= currentDeposit) {
+        // take max coins in this coinValue
+        const coinsCount = Math.floor(currentDeposit / coinValue);
+        change[coinValue] = coinsCount;
+
+        // update current deposit and chceck if is already empty
+        currentDeposit -= coinValue * coinsCount;
+        if (!currentDeposit) break;
+      }
+    }
+
+    // clear deposit & save user
+    user.deposit = 0;
+    await user.save();
+  }
+
+  ctx.body = { deposit: user.deposit, user, change };
 };
 
 /**

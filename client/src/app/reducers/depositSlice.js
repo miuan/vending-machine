@@ -35,6 +35,7 @@ const initialState = {
   deposit: 0,
   products: [],
   error: null,
+  change: null,
 };
 
 export const depositSlice = createSlice({
@@ -46,6 +47,9 @@ export const depositSlice = createSlice({
     },
     hideError: (state, action) => {
       state.error = null;
+    },
+    takeChange: (state, action) => {
+      state.change = null;
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +77,7 @@ export const depositSlice = createSlice({
     });
     builder.addCase(resetUserDeposit.fulfilled, (state, action) => {
       state.deposit = action.payload.deposit;
+      state.change = action.payload.change;
       state.loading = false;
     });
 
@@ -90,10 +95,11 @@ export const depositSlice = createSlice({
 });
 
 export const selectDeposit = (state) => state?.deposit?.deposit;
+export const selectChange = (state) => state?.deposit?.change;
 export const depositLoading = (state) => state?.deposit?.loading;
 export const depositInitializing = (state) => state?.deposit?.initializing;
 export const buyError = (state) => state?.deposit?.error;
 // Action creators are generated for each case reducer function
-export const { hideError } = depositSlice.actions;
+export const { hideError, takeChange } = depositSlice.actions;
 
 export default depositSlice.reducer;

@@ -1,11 +1,13 @@
 import { Button } from "react-bootstrap";
 
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { addDepositToUser, resetUserDeposit, selectDeposit } from "../../../../app/reducers/depositSlice";
+import { addDepositToUser, resetUserDeposit, selectChange, selectDeposit, takeChange } from "../../../../app/reducers/depositSlice";
+import ResetChangeModal from "./ResetChangeModal";
 
 export const CreditPanel = () => {
   const dispatch = useAppDispatch();
   const deposit = useAppSelector(selectDeposit);
+  const change = useAppSelector(selectChange);
 
   const addToDeposit = (add) => () => {
     dispatch(addDepositToUser(add));
@@ -13,6 +15,10 @@ export const CreditPanel = () => {
 
   const resetDeposit = () => {
     dispatch(resetUserDeposit());
+  };
+
+  const onHideChange = () => {
+    dispatch(takeChange());
   };
 
   return (
@@ -26,6 +32,7 @@ export const CreditPanel = () => {
       <Button variant="danger" onClick={() => resetDeposit()}>
         Reset
       </Button>
+      <ResetChangeModal change={change} onHide={onHideChange} />
     </div>
   );
 };

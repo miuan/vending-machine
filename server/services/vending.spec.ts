@@ -101,18 +101,42 @@ describe("i:vending", () => {
     expect(resetResponse).toHaveProperty("error");
   });
 
-  it("should reset for user2", async () => {
+  it.each([
+    [250, { "100": 2, "50": 1 }],
+    [95, { "20": 2, "5": 1, "50": 1 }],
+    [30, { "20": 1, "10": 1 }],
+    [5, { "5": 1 }],
+  ])("should reset for user2 with deposit: %s", async (deposit, change) => {
     const token = seller.token;
     const sellerraw = await server.entry.models.user.findById(seller.user.id);
-    sellerraw.deposit = 100;
+    sellerraw.deposit = deposit;
     await sellerraw.save();
 
     const userBefore = await server.entry.models.user.findById(seller.user.id);
-    expect(userBefore.deposit).toEqual(100);
+    expect(userBefore.deposit).toEqual(deposit);
 
     const resetResponse = await server.post("/api/reset", {}, token);
     expect(resetResponse).toHaveProperty("status", 200);
     expect(resetResponse).toHaveProperty("body.deposit", 0);
+    expect(resetResponse).toHaveProperty("body.change", change);
+
+    const userAfter = await server.entry.models.user.findById(seller.user.id);
+    expect(userAfter.deposit).toEqual(0);
+  });
+
+  it("should reset for user2 with deposit 0 give change `null`", async () => {
+    const token = seller.token;
+    const sellerraw = await server.entry.models.user.findById(seller.user.id);
+    sellerraw.deposit = 0;
+    await sellerraw.save();
+
+    const userBefore = await server.entry.models.user.findById(seller.user.id);
+    expect(userBefore.deposit).toEqual(0);
+
+    const resetResponse = await server.post("/api/reset", {}, token);
+    expect(resetResponse).toHaveProperty("status", 200);
+    expect(resetResponse).toHaveProperty("body.deposit", 0);
+    expect(resetResponse).toHaveProperty("body.change", null);
 
     const userAfter = await server.entry.models.user.findById(seller.user.id);
     expect(userAfter.deposit).toEqual(0);
