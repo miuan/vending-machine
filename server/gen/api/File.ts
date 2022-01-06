@@ -1,6 +1,219 @@
 import * as JSON5 from 'json5'
 import { apiMiddleware, userIsOwner, userHaveRoles, paramHaveFilter, RequestError, UnauthorizedError } from '../api-utils'
 
+/**
+ * @swagger
+ * components: 
+ *   parameters: 
+ *     FieldParam: 
+ *       name: "fields"
+ *       in: "query"
+ *       type: "array"
+ *       collectionType: "csv"
+ *       items: 
+ *         type: "string"
+ *     AliasParam: 
+ *       name: "alias"
+ *       in: "query"
+ *       type: "string"
+ *     SortParam: 
+ *       name: "sort"
+ *       in: "query"
+ *       type: "string"
+ *     FilterParam: 
+ *       name: "filter"
+ *       in: "query"
+ *       type: "string"
+ *     IdParam: 
+ *       name: "id"
+ *       in: "path"
+ *       type: "string"
+ *   schemas: 
+ *     File: 
+ *       type: "object"
+ *       properties: 
+ *         updatedAt: 
+ *           type: "string"
+ *         createdAt: 
+ *           type: "string"
+ *         id: 
+ *           type: "integer"
+ *         name: 
+ *           type: "string"
+ *         publicKey: 
+ *           type: "string"
+ *         type: 
+ *           type: "string"
+ *         size: 
+ *           type: "integer"
+ *         data: 
+ *           type: "string"
+ *         user: 
+ *           type: "string"
+ * paths: 
+ *   /api/file/all: 
+ *     get: 
+ *       tags: 
+ *         - "File"
+ *         - "all"
+ *         - "query"
+ *       summary: "Retrive all File"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/File"
+ *   /api/file/owned: 
+ *     get: 
+ *       tags: 
+ *         - "File"
+ *         - "owned"
+ *         - "query"
+ *       summary: "Retrive only owned (my) File"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/File"
+ *   /api/file/count: 
+ *     get: 
+ *       tags: 
+ *         - "File"
+ *         - "count"
+ *         - "query"
+ *       summary: "Count of File"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "Count of File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "integer"
+ *   /api/file: 
+ *     post: 
+ *       tags: 
+ *         - "File"
+ *         - "create"
+ *         - "mutation"
+ *       summary: "Create File with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/File"
+ *       responses: 
+ *         200: 
+ *           description: "updated model File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/File"
+ *   /api/file/{id}: 
+ *     get: 
+ *       tags: 
+ *         - "File"
+ *         - "one"
+ *         - "query"
+ *       summary: "Retrive one File by id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "One File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/File"
+ *     put: 
+ *       tags: 
+ *         - "File"
+ *         - "update"
+ *         - "mutation"
+ *       summary: "Update File with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/File"
+ *       responses: 
+ *         200: 
+ *           description: "updated model File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/File"
+ *     delete: 
+ *       tags: 
+ *         - "File"
+ *         - "delete"
+ *         - "mutation"
+ *       summary: "Delete File with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "updated model File"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/File"
+ */
+
 const createFile = (entry) => async (ctx) => {
     let body = ctx.request.body
 

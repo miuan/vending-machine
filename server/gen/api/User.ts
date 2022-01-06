@@ -1,6 +1,223 @@
 import * as JSON5 from 'json5'
 import { apiMiddleware, userIsOwner, userHaveRoles, paramHaveFilter, RequestError, UnauthorizedError } from '../api-utils'
 
+/**
+ * @swagger
+ * components: 
+ *   parameters: 
+ *     FieldParam: 
+ *       name: "fields"
+ *       in: "query"
+ *       type: "array"
+ *       collectionType: "csv"
+ *       items: 
+ *         type: "string"
+ *     AliasParam: 
+ *       name: "alias"
+ *       in: "query"
+ *       type: "string"
+ *     SortParam: 
+ *       name: "sort"
+ *       in: "query"
+ *       type: "string"
+ *     FilterParam: 
+ *       name: "filter"
+ *       in: "query"
+ *       type: "string"
+ *     IdParam: 
+ *       name: "id"
+ *       in: "path"
+ *       type: "string"
+ *   schemas: 
+ *     User: 
+ *       type: "object"
+ *       properties: 
+ *         updatedAt: 
+ *           type: "string"
+ *         createdAt: 
+ *           type: "string"
+ *         id: 
+ *           type: "integer"
+ *         username: 
+ *           type: "string"
+ *         deposit: 
+ *           type: "integer"
+ *         email: 
+ *           type: "string"
+ *         password: 
+ *           type: "string"
+ *         verified: 
+ *           type: "string"
+ *         roles: 
+ *           type: "string"
+ *         files: 
+ *           type: "string"
+ *         _product: 
+ *           type: "string"
+ * paths: 
+ *   /api/user/all: 
+ *     get: 
+ *       tags: 
+ *         - "User"
+ *         - "all"
+ *         - "query"
+ *       summary: "Retrive all User"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/User"
+ *   /api/user/owned: 
+ *     get: 
+ *       tags: 
+ *         - "User"
+ *         - "owned"
+ *         - "query"
+ *       summary: "Retrive only owned (my) User"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/User"
+ *   /api/user/count: 
+ *     get: 
+ *       tags: 
+ *         - "User"
+ *         - "count"
+ *         - "query"
+ *       summary: "Count of User"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "Count of User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "integer"
+ *   /api/user: 
+ *     post: 
+ *       tags: 
+ *         - "User"
+ *         - "create"
+ *         - "mutation"
+ *       summary: "Create User with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/User"
+ *       responses: 
+ *         200: 
+ *           description: "updated model User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/User"
+ *   /api/user/{id}: 
+ *     get: 
+ *       tags: 
+ *         - "User"
+ *         - "one"
+ *         - "query"
+ *       summary: "Retrive one User by id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "One User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/User"
+ *     put: 
+ *       tags: 
+ *         - "User"
+ *         - "update"
+ *         - "mutation"
+ *       summary: "Update User with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/User"
+ *       responses: 
+ *         200: 
+ *           description: "updated model User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/User"
+ *     delete: 
+ *       tags: 
+ *         - "User"
+ *         - "delete"
+ *         - "mutation"
+ *       summary: "Delete User with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "updated model User"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/User"
+ */
+
 const createUser = (entry) => async (ctx) => {
     let body = ctx.request.body
 

@@ -1,6 +1,215 @@
 import * as JSON5 from 'json5'
 import { apiMiddleware, userIsOwner, userHaveRoles, paramHaveFilter, RequestError, UnauthorizedError } from '../api-utils'
 
+/**
+ * @swagger
+ * components: 
+ *   parameters: 
+ *     FieldParam: 
+ *       name: "fields"
+ *       in: "query"
+ *       type: "array"
+ *       collectionType: "csv"
+ *       items: 
+ *         type: "string"
+ *     AliasParam: 
+ *       name: "alias"
+ *       in: "query"
+ *       type: "string"
+ *     SortParam: 
+ *       name: "sort"
+ *       in: "query"
+ *       type: "string"
+ *     FilterParam: 
+ *       name: "filter"
+ *       in: "query"
+ *       type: "string"
+ *     IdParam: 
+ *       name: "id"
+ *       in: "path"
+ *       type: "string"
+ *   schemas: 
+ *     Product: 
+ *       type: "object"
+ *       properties: 
+ *         updatedAt: 
+ *           type: "string"
+ *         createdAt: 
+ *           type: "string"
+ *         id: 
+ *           type: "integer"
+ *         amountAvailable: 
+ *           type: "integer"
+ *         cost: 
+ *           type: "integer"
+ *         name: 
+ *           type: "string"
+ *         user: 
+ *           type: "string"
+ * paths: 
+ *   /api/product/all: 
+ *     get: 
+ *       tags: 
+ *         - "Product"
+ *         - "all"
+ *         - "query"
+ *       summary: "Retrive all Product"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/Product"
+ *   /api/product/owned: 
+ *     get: 
+ *       tags: 
+ *         - "Product"
+ *         - "owned"
+ *         - "query"
+ *       summary: "Retrive only owned (my) Product"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "List of Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "array"
+ *                 items: 
+ *                   $ref: "#/components/schemas/Product"
+ *   /api/product/count: 
+ *     get: 
+ *       tags: 
+ *         - "Product"
+ *         - "count"
+ *         - "query"
+ *       summary: "Count of Product"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/SortParam"
+ *         - 
+ *           $ref: "#/components/parameters/FilterParam"
+ *       responses: 
+ *         200: 
+ *           description: "Count of Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 type: "integer"
+ *   /api/product: 
+ *     post: 
+ *       tags: 
+ *         - "Product"
+ *         - "create"
+ *         - "mutation"
+ *       summary: "Create Product with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/Product"
+ *       responses: 
+ *         200: 
+ *           description: "updated model Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/Product"
+ *   /api/product/{id}: 
+ *     get: 
+ *       tags: 
+ *         - "Product"
+ *         - "one"
+ *         - "query"
+ *       summary: "Retrive one Product by id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "One Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/Product"
+ *     put: 
+ *       tags: 
+ *         - "Product"
+ *         - "update"
+ *         - "mutation"
+ *       summary: "Update Product with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       requestBody: 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: "#/components/schemas/Product"
+ *       responses: 
+ *         200: 
+ *           description: "updated model Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/Product"
+ *     delete: 
+ *       tags: 
+ *         - "Product"
+ *         - "delete"
+ *         - "mutation"
+ *       summary: "Delete Product with id"
+ *       parameters: 
+ *         - 
+ *           $ref: "#/components/parameters/FieldParam"
+ *         - 
+ *           $ref: "#/components/parameters/AliasParam"
+ *         - 
+ *           $ref: "#/components/parameters/IdParam"
+ *       responses: 
+ *         200: 
+ *           description: "updated model Product"
+ *           content: 
+ *             application/json: 
+ *               schema: 
+ *                 $ref: "#/components/schemas/Product"
+ */
+
 const createProduct = (entry) => async (ctx) => {
     let body = ctx.request.body
 
@@ -96,14 +305,16 @@ const allProduct = (entry) => async (ctx) => {
     // user is owner need id
     body.id = ctx.params.id
 
-    
-
     if (entry.hooks.api['beforeAllProduct']) {
         body = (await entry.hooks.api['beforeAllProduct'](entry, ctx, body)) || body
     }
 
     body.user = body.user || ctx.state?.user?.id
-    let resData = await entry.services['product'].all(ctx.params, ctx.state?.user?.id)
+    const query = ctx.request.query
+    if (query.filter) {
+        query.filter = JSON5.parse(query.filter)
+    }
+    let resData = await entry.services['product'].all(query, ctx.state?.user?.id)
     resData = resData.map((m) => {
         m.id = m._id
         delete m._id

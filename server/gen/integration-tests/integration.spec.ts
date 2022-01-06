@@ -70,11 +70,11 @@
             const token = admin.token
               
             const data = {
-	"updatedAt": "2021-09-05T22:48:59.007Z",
-	"createdAt": "2020-12-05T23:39:25.907Z",
-	"amountAvailable": 436967,
-	"cost": 863931,
-	"name": "Product/name/c7vt6v6e"
+	"updatedAt": "2021-07-13T22:09:29.413Z",
+	"createdAt": "2020-01-24T23:58:36.947Z",
+	"amountAvailable": 401447,
+	"cost": 388113,
+	"name": "Product/name/w26s06b"
 }
 const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cost: Int!,$name: String!){
         createProduct(amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -87,9 +87,9 @@ const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cos
         variables: data
       }, token);
     expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 436967)
-expect(createProductResponse).toHaveProperty('data.createProduct.cost', 863931)
-expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/c7vt6v6e')
+expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 401447)
+expect(createProductResponse).toHaveProperty('data.createProduct.cost', 388113)
+expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/w26s06b')
         })
     
         
@@ -97,7 +97,7 @@ expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":643892,"cost":357480,"name":"Product/name/s8tha34a"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":845082,"cost":41364,"name":"Product/name/cypuu0n4"})
                 // createModelLine: end  
             const oneProductQuery = `query Product($id: ID!){
         Product(id: $id) {
@@ -127,7 +127,7 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":85884,"cost":175329,"name":"Product/name/fk6hzuui"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":47697,"cost":906969,"name":"Product/name/7pqoc11l"})
                 // createModelLine: end  
             const updateProductMutation = `mutation UpdateProduct($id: ID!,$amountAvailable: Int,$cost: Int!,$name: String!){
         updateProduct(id: $id,amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -139,17 +139,17 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
         mutation: updateProductMutation,
         variables: {
 	"id": createProductResponse.id,
-	"amountAvailable": 641348,
-	"cost": 269072,
-	"name": "Product/name/bw135ipt"
+	"amountAvailable": 115894,
+	"cost": 166930,
+	"name": "Product/name/oaabog7"
 }
       }, token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('data.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 641348)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 269072)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/bw135ipt')
+expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 115894)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 166930)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/oaabog7')
     
         })
     
@@ -158,7 +158,7 @@ expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":235426,"cost":440140,"name":"Product/name/kfllvnyp"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":719627,"cost":926110,"name":"Product/name/8isw3tv9"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -186,11 +186,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":500291,"cost":409613,"name":"Product/name/kzaqvxtk"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":905765,"cost":957581,"name":"Product/name/3x1rkcjd"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, admin, {"amountAvailable":35736,"cost":36238,"name":"Product/name/i9ndoty1"})
+                const createProductResponse2 = await createProduct(server, admin, {"amountAvailable":480852,"cost":801723,"name":"Product/name/cwc5yh5x"})
                 // createModelLine: end  
             const allProductQuery = `query allProduct {
         allProduct {
@@ -218,18 +218,18 @@ expect(allProductResponse.data.allProduct).toEqual(expect.arrayContaining([
             const token = admin.token
               
             const data = {
-	"updatedAt": "2021-08-31T22:55:16.408Z",
-	"createdAt": "2021-05-31T22:00:29.896Z",
-	"amountAvailable": 213965,
-	"cost": 256249,
-	"name": "Product/name/siuqql2c"
+	"updatedAt": "2021-03-30T22:46:15.538Z",
+	"createdAt": "2021-07-22T22:34:52.351Z",
+	"amountAvailable": 403000,
+	"cost": 958011,
+	"name": "Product/name/1os5h59g"
 }
     const createProductResponse = await server.post('/api/product', data ,token);
       
       expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 213965)
-expect(createProductResponse).toHaveProperty('body.createProduct.cost', 256249)
-expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/siuqql2c')
+expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 403000)
+expect(createProductResponse).toHaveProperty('body.createProduct.cost', 958011)
+expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/1os5h59g')
     
         })
     
@@ -238,7 +238,7 @@ expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":900524,"cost":187659,"name":"Product/name/rnrcdwzp"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":352686,"cost":386223,"name":"Product/name/q44hsb3h"})
                 // createModelLine: end  
             
       const oneProductResponse = await server.get('/api/product/' + createProductResponse.id, token);
@@ -260,23 +260,23 @@ expect(oneProductResponse).toHaveProperty('body.product.user')
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":683633,"cost":872181,"name":"Product/name/0b9bc3if"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":60355,"cost":347353,"name":"Product/name/mceb153"})
                 // createModelLine: end  
             
     const updateProductResponse = await server.put('/api/product/' + createProductResponse.id,
         {
 	"id": createProductResponse.id,
-	"amountAvailable": 25628,
-	"cost": 190937,
-	"name": "Product/name/2f7kvpp4"
+	"amountAvailable": 565117,
+	"cost": 471093,
+	"name": "Product/name/72hhzh0c"
 }
       , token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('body.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 25628)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 190937)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/2f7kvpp4')
+expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 565117)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 471093)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/72hhzh0c')
     
         })
     
@@ -285,7 +285,7 @@ expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":354989,"cost":409300,"name":"Product/name/usugpugp"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":519369,"cost":418426,"name":"Product/name/mlb7xzd"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -313,11 +313,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = admin.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, admin, {"amountAvailable":132850,"cost":503522,"name":"Product/name/0x0v9nk"})
+                const createProductResponse = await createProduct(server, admin, {"amountAvailable":405936,"cost":445275,"name":"Product/name/7qp4ei0o"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, admin, {"amountAvailable":184266,"cost":71849,"name":"Product/name/r5a7t5in"})
+                const createProductResponse2 = await createProduct(server, admin, {"amountAvailable":769033,"cost":635828,"name":"Product/name/he1e2a5j"})
                 // createModelLine: end  
              const allProductResponse = await server.get('/api/product/all', token);
 expect(allProductResponse.body.allProduct).toEqual(expect.arrayContaining([
@@ -335,11 +335,11 @@ expect(allProductResponse.body.allProduct).toEqual(expect.arrayContaining([
             const token = user.token
               
             const data = {
-	"updatedAt": "2021-01-01T23:27:14.191Z",
-	"createdAt": "2021-01-19T23:00:43.339Z",
-	"amountAvailable": 468599,
-	"cost": 499343,
-	"name": "Product/name/ez81lbp"
+	"updatedAt": "2021-05-20T22:27:58.617Z",
+	"createdAt": "2021-12-24T23:31:37.738Z",
+	"amountAvailable": 161753,
+	"cost": 326147,
+	"name": "Product/name/00gvh86r"
 }
 const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cost: Int!,$name: String!){
         createProduct(amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -352,9 +352,9 @@ const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cos
         variables: data
       }, token);
     expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 468599)
-expect(createProductResponse).toHaveProperty('data.createProduct.cost', 499343)
-expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/ez81lbp')
+expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 161753)
+expect(createProductResponse).toHaveProperty('data.createProduct.cost', 326147)
+expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/00gvh86r')
         })
     
         
@@ -362,7 +362,7 @@ expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":155565,"cost":553791,"name":"Product/name/5ym3a0dm"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":797663,"cost":842037,"name":"Product/name/dhcstljg"})
                 // createModelLine: end  
             const oneProductQuery = `query Product($id: ID!){
         Product(id: $id) {
@@ -392,7 +392,7 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":20784,"cost":852455,"name":"Product/name/7vqmx4jm"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":498297,"cost":627050,"name":"Product/name/tyojwbui"})
                 // createModelLine: end  
             const updateProductMutation = `mutation UpdateProduct($id: ID!,$amountAvailable: Int,$cost: Int!,$name: String!){
         updateProduct(id: $id,amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -404,17 +404,17 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
         mutation: updateProductMutation,
         variables: {
 	"id": createProductResponse.id,
-	"amountAvailable": 94187,
-	"cost": 335707,
-	"name": "Product/name/c1p12aq6"
+	"amountAvailable": 89286,
+	"cost": 643866,
+	"name": "Product/name/2e8hsire"
 }
       }, token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('data.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 94187)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 335707)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/c1p12aq6')
+expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 89286)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 643866)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/2e8hsire')
     
         })
     
@@ -423,7 +423,7 @@ expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":826396,"cost":178856,"name":"Product/name/hfu8ztno"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":371414,"cost":444629,"name":"Product/name/1o1v6737"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -451,11 +451,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":394771,"cost":699378,"name":"Product/name/sumaaa6s"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":588437,"cost":307344,"name":"Product/name/6v4l0f0g"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, user, {"amountAvailable":235667,"cost":551940,"name":"Product/name/tpuwqxsh"})
+                const createProductResponse2 = await createProduct(server, user, {"amountAvailable":987387,"cost":499899,"name":"Product/name/o0igw9i"})
                 // createModelLine: end  
             const allProductQuery = `query allProduct {
         allProduct {
@@ -483,18 +483,18 @@ expect(allProductResponse.data.allProduct).toEqual(expect.arrayContaining([
             const token = user.token
               
             const data = {
-	"updatedAt": "2021-01-26T23:53:45.227Z",
-	"createdAt": "2020-02-01T23:54:19.620Z",
-	"amountAvailable": 507927,
-	"cost": 528088,
-	"name": "Product/name/woo5zmxt"
+	"updatedAt": "2021-01-17T23:29:29.101Z",
+	"createdAt": "2021-05-18T22:31:45.466Z",
+	"amountAvailable": 696732,
+	"cost": 188631,
+	"name": "Product/name/quuz5zpj"
 }
     const createProductResponse = await server.post('/api/product', data ,token);
       
       expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 507927)
-expect(createProductResponse).toHaveProperty('body.createProduct.cost', 528088)
-expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/woo5zmxt')
+expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 696732)
+expect(createProductResponse).toHaveProperty('body.createProduct.cost', 188631)
+expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/quuz5zpj')
     
         })
     
@@ -503,7 +503,7 @@ expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":381598,"cost":937881,"name":"Product/name/l60lwre"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":209304,"cost":211262,"name":"Product/name/n9sb76bl"})
                 // createModelLine: end  
             
       const oneProductResponse = await server.get('/api/product/' + createProductResponse.id, token);
@@ -525,23 +525,23 @@ expect(oneProductResponse).toHaveProperty('body.product.user')
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":689695,"cost":728000,"name":"Product/name/1w63x4h2v"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":525289,"cost":512379,"name":"Product/name/cvi7hl1m"})
                 // createModelLine: end  
             
     const updateProductResponse = await server.put('/api/product/' + createProductResponse.id,
         {
 	"id": createProductResponse.id,
-	"amountAvailable": 163363,
-	"cost": 426524,
-	"name": "Product/name/2gpj27zj"
+	"amountAvailable": 456825,
+	"cost": 86898,
+	"name": "Product/name/ago35cg6e"
 }
       , token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('body.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 163363)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 426524)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/2gpj27zj')
+expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 456825)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 86898)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/ago35cg6e')
     
         })
     
@@ -550,7 +550,7 @@ expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":852367,"cost":547241,"name":"Product/name/bdebidbm"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":720273,"cost":7982,"name":"Product/name/xq4z1wcw"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -578,11 +578,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = user.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, user, {"amountAvailable":718709,"cost":536035,"name":"Product/name/t1drswji"})
+                const createProductResponse = await createProduct(server, user, {"amountAvailable":347176,"cost":530133,"name":"Product/name/tc98afkg"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, user, {"amountAvailable":321906,"cost":168993,"name":"Product/name/5duu98bu"})
+                const createProductResponse2 = await createProduct(server, user, {"amountAvailable":397144,"cost":364935,"name":"Product/name/l590r4ac"})
                 // createModelLine: end  
              const allProductResponse = await server.get('/api/product/all', token);
 expect(allProductResponse.body.allProduct).toEqual(expect.arrayContaining([
@@ -600,11 +600,11 @@ expect(allProductResponse.body.allProduct).toEqual(expect.arrayContaining([
             const token = pub.token
               
             const data = {
-	"updatedAt": "2021-12-02T23:32:33.695Z",
-	"createdAt": "2021-11-04T23:52:38.452Z",
-	"amountAvailable": 853546,
-	"cost": 804165,
-	"name": "Product/name/01ny5giu"
+	"updatedAt": "2020-02-03T23:41:30.812Z",
+	"createdAt": "2021-05-31T22:46:40.041Z",
+	"amountAvailable": 165392,
+	"cost": 863044,
+	"name": "Product/name/jqxw6s6"
 }
 const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cost: Int!,$name: String!){
         createProduct(amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -617,9 +617,9 @@ const createProductMutation = `mutation CreateProduct($amountAvailable: Int,$cos
         variables: data
       }, token);
     expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 853546)
-expect(createProductResponse).toHaveProperty('data.createProduct.cost', 804165)
-expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/01ny5giu')
+expect(createProductResponse).toHaveProperty('data.createProduct.amountAvailable', 165392)
+expect(createProductResponse).toHaveProperty('data.createProduct.cost', 863044)
+expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product/name/jqxw6s6')
         })
     
         
@@ -627,7 +627,7 @@ expect(createProductResponse).toHaveProperty('data.createProduct.name', 'Product
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":342304,"cost":4399,"name":"Product/name/58ob8oxg"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":785985,"cost":567710,"name":"Product/name/s6odlmi3"})
                 // createModelLine: end  
             const oneProductQuery = `query Product($id: ID!){
         Product(id: $id) {
@@ -657,7 +657,7 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":174332,"cost":561422,"name":"Product/name/t5t3dlac"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":892238,"cost":414010,"name":"Product/name/x950x84x"})
                 // createModelLine: end  
             const updateProductMutation = `mutation UpdateProduct($id: ID!,$amountAvailable: Int,$cost: Int!,$name: String!){
         updateProduct(id: $id,amountAvailable: $amountAvailable,cost: $cost,name: $name) {
@@ -669,17 +669,17 @@ expect(oneProductResponse).toHaveProperty('data.Product.user')
         mutation: updateProductMutation,
         variables: {
 	"id": createProductResponse.id,
-	"amountAvailable": 89183,
-	"cost": 175006,
-	"name": "Product/name/9trxshv1"
+	"amountAvailable": 239785,
+	"cost": 575180,
+	"name": "Product/name/m6b9vpu"
 }
       }, token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('data.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 89183)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 175006)
-expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/9trxshv1')
+expect(updateProductResponse).toHaveProperty('data.updateProduct.amountAvailable', 239785)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.cost', 575180)
+expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product/name/m6b9vpu')
     
         })
     
@@ -688,7 +688,7 @@ expect(updateProductResponse).toHaveProperty('data.updateProduct.name', 'Product
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":862516,"cost":954659,"name":"Product/name/761du72h"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":890357,"cost":428531,"name":"Product/name/m1kmykkk"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -716,11 +716,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":322372,"cost":310355,"name":"Product/name/jmpws9o"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":579618,"cost":130214,"name":"Product/name/bv03ed4p"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, pub, {"amountAvailable":85353,"cost":326991,"name":"Product/name/b16seiq9"})
+                const createProductResponse2 = await createProduct(server, pub, {"amountAvailable":852295,"cost":606136,"name":"Product/name/e4rgpebl"})
                 // createModelLine: end  
             const allProductQuery = `query allProduct {
         allProduct {
@@ -748,18 +748,18 @@ expect(allProductResponse.data.allProduct).toEqual(expect.arrayContaining([
             const token = pub.token
               
             const data = {
-	"updatedAt": "2021-08-29T22:08:39.381Z",
-	"createdAt": "2020-05-20T22:16:57.313Z",
-	"amountAvailable": 316330,
-	"cost": 316035,
-	"name": "Product/name/e28ujlr"
+	"updatedAt": "2020-10-14T22:48:22.830Z",
+	"createdAt": "2020-11-21T23:11:30.007Z",
+	"amountAvailable": 491969,
+	"cost": 302413,
+	"name": "Product/name/erf18uyp"
 }
     const createProductResponse = await server.post('/api/product', data ,token);
       
       expect(createProductResponse).not.toHaveProperty('errors')
-expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 316330)
-expect(createProductResponse).toHaveProperty('body.createProduct.cost', 316035)
-expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/e28ujlr')
+expect(createProductResponse).toHaveProperty('body.createProduct.amountAvailable', 491969)
+expect(createProductResponse).toHaveProperty('body.createProduct.cost', 302413)
+expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product/name/erf18uyp')
     
         })
     
@@ -768,7 +768,7 @@ expect(createProductResponse).toHaveProperty('body.createProduct.name', 'Product
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":353840,"cost":71147,"name":"Product/name/28vpd3zd"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":941499,"cost":596333,"name":"Product/name/gfoi1dqm"})
                 // createModelLine: end  
             
       const oneProductResponse = await server.get('/api/product/' + createProductResponse.id, token);
@@ -790,23 +790,23 @@ expect(oneProductResponse).toHaveProperty('body.product.user')
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":694498,"cost":316348,"name":"Product/name/4udu9du"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":740311,"cost":57754,"name":"Product/name/y1r5xp4u"})
                 // createModelLine: end  
             
     const updateProductResponse = await server.put('/api/product/' + createProductResponse.id,
         {
 	"id": createProductResponse.id,
-	"amountAvailable": 939693,
-	"cost": 226184,
-	"name": "Product/name/wgis72q4"
+	"amountAvailable": 819277,
+	"cost": 716493,
+	"name": "Product/name/5moyzsoj"
 }
       , token);
 
     expect(updateProductResponse).not.toHaveProperty('errors')
 expect(updateProductResponse).toHaveProperty('body.updateProduct.id', createProductResponse.id)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 939693)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 226184)
-expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/wgis72q4')
+expect(updateProductResponse).toHaveProperty('body.updateProduct.amountAvailable', 819277)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.cost', 716493)
+expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product/name/5moyzsoj')
     
         })
     
@@ -815,7 +815,7 @@ expect(updateProductResponse).toHaveProperty('body.updateProduct.name', 'Product
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":56642,"cost":768804,"name":"Product/name/5muekud"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":200588,"cost":636149,"name":"Product/name/cjsnzlza"})
                 // createModelLine: end  
             const removeProductMutation = `mutation RemoveProduct($id: ID!){
         removeProduct(id: $id) {
@@ -843,11 +843,11 @@ expect(removeProductResponse).toHaveProperty('data.removeProduct.id', createProd
             const token = pub.token
             
                 // createModelLine: start
-                const createProductResponse = await createProduct(server, pub, {"amountAvailable":924935,"cost":434089,"name":"Product/name/yn1fghvf"})
+                const createProductResponse = await createProduct(server, pub, {"amountAvailable":301731,"cost":638289,"name":"Product/name/kzstyry9"})
                 // createModelLine: end
 
                 // createModelLine: start
-                const createProductResponse2 = await createProduct(server, pub, {"amountAvailable":565826,"cost":85310,"name":"Product/name/0vw0fg5"})
+                const createProductResponse2 = await createProduct(server, pub, {"amountAvailable":828648,"cost":903755,"name":"Product/name/02u5eqyp"})
                 // createModelLine: end  
              const allProductResponse = await server.get('/api/product/all', token);
 expect(allProductResponse.body.allProduct).toEqual(expect.arrayContaining([
